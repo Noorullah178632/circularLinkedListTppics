@@ -1,3 +1,5 @@
+import 'dart:vmservice_io';
+
 class Node {
   int? data;
   Node? next;
@@ -114,6 +116,41 @@ class CircularLinkedList {
     temp.next = head;
   }
 
+  //searching a value in the circular linked list
+  void searchValue(int searchData) {
+    if (head == null) {
+      return print("List is empty");
+    }
+    Node? temp = head;
+    do {
+      if (temp!.data == searchData) {
+        print("Value:$searchData find in the list");
+        return;
+      }
+      temp = temp.next!;
+    } while (temp != head);
+    print("There is no value:$searchData in the linked list ");
+  }
+
+  //update value in the linked list
+  void updataValue(int oldValue, int newValue) {
+    if (head == null) {
+      print("List is empty");
+      return;
+    }
+
+    Node? temp = head;
+    do {
+      if (temp!.data == oldValue) {
+        temp.data = newValue;
+        print("value updated from $oldValue to $newValue");
+        return;
+      }
+      temp = temp.next;
+    } while (temp != head);
+    print("Value $oldValue not found in the list ");
+  }
+
   //showing the linked list
   List showLinkedList() {
     Node temp = head!;
@@ -136,7 +173,10 @@ void main() {
   a.addAtBeginnig(210);
   a.addValueAfterValue(50, 10);
   a.addAtLast(90);
-  a.deleteAtFirst();
-  a.deleteAtLast();
+  a.updataValue(50, 1);
+  // a.deleteAtFirst();
+  // a.deleteAtLast();
+  a.searchValue(200);
+  a.searchValue(20);
   print(a.showLinkedList());
 }
