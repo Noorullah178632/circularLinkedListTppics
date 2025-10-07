@@ -1,5 +1,3 @@
-import 'dart:vmservice_io';
-
 class Node {
   int? data;
   Node? next;
@@ -80,23 +78,37 @@ class CircularLinkedList {
     head = head!.next;
   }
 
-  // //remove a value from the circular linked list
-  // void removeValue(int data) {
-  //   if (head == null) {
-  //     return print("The list is empty ");
-  //   }
+  //remove a value from the circular linked list
+  void removeValue(int data) {
+    if (head == null) {
+      return print("The list is empty ");
+    }
+    //if the head data is equal to data
+    if (head!.data == data) {
+      //if there is only one data in the list
+      if (head!.next == head) {
+        head = null;
+        return print("$data deleted (list is now empty)");
+      }
+      Node? last = head;
+      while (last!.next != head) {
+        last = last.next;
+      }
+      last.next = head!.next;
+      head = head!.next;
+      return print("deleted $data from the first node");
+    }
 
-  //   Node temp = head!;
-  //   while (temp.next != head) {
-  //     if (temp.data == data) {
-  //       newNode = temp.next!;
-
-  //       return;
-  //     }
-  //     temp = temp.next!;
-  //   }
-  //   print("No value :$data present in the circular linked list");
-  // }
+    Node? temp = head;
+    do {
+      if (temp!.next!.data == data) {
+        temp.next = temp.next!.next;
+        return;
+      }
+      temp = temp.next;
+    } while (temp != head);
+    print("$data not found in the list ");
+  }
 
   //delete last node
   void deleteAtLast() {
@@ -151,6 +163,22 @@ class CircularLinkedList {
     print("Value $oldValue not found in the list ");
   }
 
+  //find the lenght of the circular linked list
+  void lenghtOfList() {
+    if (head == null) {
+      print("List is empty");
+      return;
+    }
+    int count = 0;
+    Node? temp = head;
+    do {
+      count++;
+      temp = temp!.next;
+    } while (temp != head);
+
+    print(count);
+  }
+
   //showing the linked list
   List showLinkedList() {
     Node temp = head!;
@@ -176,7 +204,9 @@ void main() {
   a.updataValue(50, 1);
   // a.deleteAtFirst();
   // a.deleteAtLast();
+  a.removeValue(210);
   a.searchValue(200);
   a.searchValue(20);
   print(a.showLinkedList());
+  a.lenghtOfList();
 }
